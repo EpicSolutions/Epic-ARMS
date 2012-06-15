@@ -28,11 +28,12 @@ $('.datePicker').change(function(event){
 			function(data){$('row', data).each(function(i){
 			
 				// Get each field from the current row		
-				var date = $(this).find("date").text();
-				var route = $(this).find("route").text();
+				var date     = $(this).find("date").text();
+				var route    = $(this).find("route").text();
 				var location = $(this).find("location").text();
-				var cards = $(this).find("cards").text();
-				var calls = $(this).find("calls").text();
+				var cards    = $(this).find("cards").text();
+				var calls    = $(this).find("calls").text();
+				var site     = $(this).find("site").text();
 				
 				if($(this).find("result").text() != "No Routes")
 				{
@@ -44,7 +45,7 @@ $('.datePicker').change(function(event){
 							  '<td class="cards">' + cards + '</td>' +
 							  '<td><a class="calls" href="">' + calls + '</a></td>' +
 							  '<td><a class="delete" href="">Delete</a></td>' +
-							  '<td><a class="map" target="_blank" href="routes/maps/' + route + '.pdf">Map</a></td>' +
+							  '<td><a class="map" target="_blank" href="' + site + '/routes/maps/' + route + '.pdf">Map</a></td>' +
 							  '</tr>';
 							 
 					// Add row to table

@@ -110,6 +110,7 @@ if($source == 'scheduledRoutes')
 		$xml .= "<location>$location</location>";
 		$xml .= "<cards>$cards</cards>";
 		$xml .= "<calls>$calls</calls>";
+		$xml .= "<site>$site</site>";
 		$xml .= "</row>";
 	}
 	

@@ -87,3 +87,5 @@
 [15-Jun-2012 11:26:04] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/arms/index.php on line 36
 [15-Jun-2012 11:27:20] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/arms/index.php on line 36
 [15-Jun-2012 11:49:13] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/arms/index.php on line 36
+[15-Jun-2012 18:28:58] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/arms/index.php on line 36
+[15-Jun-2012 18:29:19] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/arms/index.php on line 36
