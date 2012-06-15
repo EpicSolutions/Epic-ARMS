@@ -1,0 +1,2 @@
+May 21, 2012
+You can now view routes by day or by week on the Routes Page. You can also switch within the week of the selected date on the Add Routes page.

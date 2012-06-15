@@ -1,0 +1,166 @@
+@charset "utf-8";
+
+/**** Elements ****/
+body, html 
+{	font: 100%/1.4 "Times New Roman", Times, serif;
+	margin: 0;
+	padding: 0;
+	color: #000;
+	height: 100%;
+}
+
+/* Lists */	 
+ul, ol, dl 
+{
+	padding: 0;
+	margin: 0;
+}
+
+/* Headers */			
+h1, h2, h3, h4, h5, h6, p 
+{
+	margin-top: 0;	 
+	padding-right: 15px;
+	padding-left: 15px; 
+}
+	
+/* Links */
+a img 
+{
+	border: none;
+}
+
+a:link 
+{
+	color: #42413C;
+	text-decoration: none;
+}
+		
+a:visited 
+{
+	color: #6E6C64;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus 
+{
+	text-decoration: none;
+}
+
+/**** Nav Menu ****/
+#routeButton
+{
+	background-image: url(../images/routeButton.png);	
+}
+
+#routeMenu li
+{
+	background: rgb(234,226,24);	
+}
+
+#driverButton
+{
+	background-image: url(../images/driverButton.png);	
+}
+
+#driverMenu li
+{
+	background: rgb(243,6,6);	
+}
+
+#operatorButton
+{
+	background-image: url(../images/operatorButton.png);	
+}
+
+#operatorMenu li
+{
+	background: rgb(68,247,6);	
+}
+
+#gpsButton
+{
+	background-image: url(../images/gpsButton.png);	
+}
+
+#gpsMenu li
+{
+	background: rgb(6,91,247);	
+}
+
+/**** Main Content Holders ****/
+.header {min-height: 100px;}
+
+.sidebar 
+{
+	float: left;
+	width: 180px;
+	height: 82%;
+	background: #ddd;
+	border: 1px solid #bbb;
+	padding-bottom: 10px;
+}
+
+#outsideContainer 
+{
+	background: #fff;
+	min-width: 780px;
+	margin-left: 190px;
+}
+
+#insideContainer 
+{
+	background: #fff;
+	width: 780px;
+	margin: 0 auto;
+}
+
+.content
+{
+	
+	border: 1px solid #000;
+	height: 500px;	
+}
+
+.footer 
+{	
+	width: 100%;
+	padding: 0;
+	background: #aaa;
+	position: relative;
+	clear: both;
+	font: 12px "Times New Roman", Times, serif;
+}
+
+/**** Subcontent ****/
+
+/* Content Lists */
+.content ul, .content ol 
+{
+	padding: 0 15px 15px 40px;
+}
+
+/* Sidebar */
+.sidebar h2 
+{
+	font-size: 18px; 
+	margin-bottom: 0px;
+}
+
+/* Floats */
+.fltrt 
+{
+	float: right;
+	margin-left: 8px;
+}
+.fltlft 
+{
+	float: left;
+	margin-right: 8px;
+}
+.clearfloat 
+{
+	clear:both;
+	height:0;
+	font-size: 1px;
+	line-height: 0px;
+}

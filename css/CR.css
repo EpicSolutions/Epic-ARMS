@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* Call Reports */
+
+table
+{
+	border-collapse: collapse;
+	width: 562px;
+	margin: 0 auto;	
+}
+
+th
+{
+	text-align: left;	
+}
+
+thead th
+{
+	font-size: 20pt;
+	text-align: center;
+}
+
+td
+{
+	border: 1px solid rgb(150,150,150);	
+}
+
+tr
+{
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+	padding-top: 15px;	
+}
+
+.noBorder
+{
+	border: none;	
+}
+
+.start
+{
+	border-top: 2px solid black;	
+}
+
+.end
+{
+	border-bottom: 2px solid black;	
+}
+
+.left
+{
+	border-left: 2px solid black;	
+}
+
+.right
+{
+	border-right: 2px solid black;
+	padding-left: 5px;	
+}
+
+.break
+{
+	height: 10px;	
+}
