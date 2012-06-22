@@ -57,7 +57,6 @@ else
 
 <body>
 <div id="wrapper">
-<div id="wrapper">
 
 <div class="header">
     <a id="logo" alt="" href="index.php"><img id="logo" alt="Logo" src="<?php echo $site; ?>/images/logo.jpg" /></a>
@@ -112,7 +111,7 @@ else
     <br /><br />
   
 	<div class="content">
-    	<img id="mainImage" alt="The Arc" src="images/arcImage.jpg" />
+    	<img id="mainImage" alt="<?php echo $site; ?>" src="<?php echo $site; ?>/images/truck.jpg" />
         
 	</div><!-- end .content -->
 </div><!-- end #insideContainer -->

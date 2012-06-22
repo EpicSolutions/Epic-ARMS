@@ -99,7 +99,7 @@ a:hover, a:active, a:focus { /* this group of selectors will give a keyboard nav
 .rightContent {
 	background: url(images/map.png);
 	padding: 10px 0;
-	width: 479px;
+	width: 478px;
 	float: left;
 	height: 550px;
 	border-right: 1px solid black;
