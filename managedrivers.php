@@ -124,7 +124,7 @@ else
     <br /><br />
   	
     <div id="content">
-        <p style="text-align: center;">To view the scheduled route for a date, select the date by clicking in the field below.</p>
+        <p style="text-align: center;">To add a driver, enter the First and Last name and click Add Driver.</p>
         
         <div id="nameInput">
             First name: <input id="firstName" name="firstName" type="text" />
