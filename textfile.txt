@@ -1,0 +1,48 @@
+object(stdClass)#1 (1) {
+  ["atdatalatest"]=>
+  object(stdClass)#2 (1) {
+    ["unit"]=>
+    object(stdClass)#3 (3) {
+      ["id"]=>
+      string(10) "4381598286"
+      ["nick"]=>
+      string(4) "sean"
+      ["record"]=>
+      object(stdClass)#4 (5) {
+        ["cached"]=>
+        string(1) "N"
+        ["towerlocation"]=>
+        string(1) "N"
+        ["time"]=>
+        object(stdClass)#5 (1) {
+          ["text"]=>
+          string(19) "2012-06-25 01:23:03"
+        }
+        ["status"]=>
+        object(stdClass)#6 (3) {
+          ["batterylevel"]=>
+          string(2) "37"
+          ["gpslevel"]=>
+          int(30)
+          ["towerlevel"]=>
+          int(0)
+        }
+        ["gps"]=>
+        object(stdClass)#7 (6) {
+          ["lat"]=>
+          float(32.96994)
+          ["lon"]=>
+          float(-96.88549)
+          ["alt"]=>
+          string(3) "137"
+          ["speed"]=>
+          int(0)
+          ["heading"]=>
+          int(0)
+          ["direction"]=>
+          string(1) "-"
+        }
+      }
+    }
+  }
+}
