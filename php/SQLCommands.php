@@ -153,22 +153,22 @@ if($source == 'scheduledRoutes')
 	
 	while($array = mysql_fetch_array($sql))
 	{
-		$phone = $array['primaryPhone'];
-		$firstName = $array['firstName'];
-		$lastName = $array['lastName'];
-		$address = $array['address'];
-		$city = $array['city'];
-		$state = $array['state'];
-		$zip = $array['zip'];
-		$email = $array['email'];
-		$notes = $array['notes'];
-		$location = $array['location'];
-		$instruction = $array['driverInstruction'];
-		$dateCalled = $array['dateCalled'];
-		$operator = $array['operator'];
-		$callType = $array['callType'];
-		$missed = $array['donorMissed'];
-		$endStatus = $array['endingStatus'];
+		$phone       = htmlspecialchars($array['primaryPhone']);
+		$firstName   = htmlspecialchars($array['firstName']);
+		$lastName    = htmlspecialchars($array['lastName']);
+		$address     = htmlspecialchars($array['address']);
+		$city        = htmlspecialchars($array['city']);
+		$state       = htmlspecialchars($array['state']);
+		$zip         = htmlspecialchars($array['zip']);
+		$email       = htmlspecialchars($array['email']);
+		$notes       = htmlspecialchars($array['notes']);
+		$location    = htmlspecialchars($array['location']);
+		$instruction = htmlspecialchars($array['driverInstruction']);
+		$dateCalled  = htmlspecialchars($array['dateCalled']);
+		$operator    = htmlspecialchars($array['operator']);
+		$callType    = htmlspecialchars($array['callType']);
+		$missed      = htmlspecialchars($array['donorMissed']);
+		$endStatus   = htmlspecialchars($array['endingStatus']);
 				
 		// XML string
 		$xml .= "<row>";
@@ -189,6 +189,7 @@ if($source == 'scheduledRoutes')
 		$xml .= "<missed>$missed</missed>";
 		$xml .= "<endStatus>$endStatus</endStatus>";
 		$xml .= "</row>";
+		
 	}
 	
 	if(mysql_num_rows($sql) == 0)
