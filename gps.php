@@ -42,15 +42,36 @@ else
 	}
 }
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ARMS - GPS Tracking</title>
 <link href="css/mainStyle.css" rel="stylesheet" type="text/css">
 <link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
 <script src="js/SpryMenuBar.js" type="text/javascript"></script>
+<script type="text/javascript" 
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAoFybZX6NkgG5g0kd7HPLprhlIX8nQRMI&sensor=false">
+</script>
+<style>
+<!--
+.control {
+	width: 30%;
+	height: auto;
+	border: 1px solid black;	
+	float: left;
+}
 
+.map {
+	width: auto;
+	height: auto;
+	border: 1px solid red;	
+	float: left;
+}
+
+-->
+</style>
 </head>
 
 <body>
@@ -60,26 +81,6 @@ else
     <a id="logo" alt="" href="index.php"><img id="logo" alt="Logo" src="<?php echo $site; ?>/images/logo.jpg" /></a>
 	  
 </div><!-- end .header -->
-  
-<div class="sidebar">
-	
-    <img src="images/redGradient.png" />
-
-    <h2 style="font-size: 11pt;">Welcome, <? echo $uName; ?>!</h2>
-    <p id="logout">
-    	<a style="color: blue;" href="change.php">Change Password</a>
-    	<a style="color: blue;" href="logout.php">Logout</a>
-   	</p>
-    <p></p>
-    <p>Last login: <? echo $lastLogin; ?></p>
-    <p></p>
-    
-    <hr />
-    
-    <h2>Current News</h2>
-    <p style="font-size: 12px; font-weight: bold;"><?php echo $newsDate; ?></p>
-    <p style="overflow: auto;"><?php echo $newsMessage; ?></p>
-</div><!-- end .sidebar -->
 
 <div id="outsideContainer">
 <div id="insideContainer">
@@ -105,12 +106,13 @@ else
   	</ul>
     <br /><br />
   
-<div class="content">
-    <h1>Coming soon...</h1>
-        
-  </div><!-- end .content -->
 </div><!-- end #insideContainer -->
 </div><!-- end #outsideContainer -->
+
+<div class="control">
+</div>
+<div class="map">
+</div>
       
 </div><!-- end #wrapper -->
 
