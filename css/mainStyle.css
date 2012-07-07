@@ -7,6 +7,7 @@ body, html
 	padding: 0;
 	color: #000;
 	height: 100%;
+	overflow: none;
 }
 
 /* Lists */	 
@@ -50,7 +51,6 @@ a:hover, a:active, a:focus
 #wrapper
 {
 	min-height: 100%;
-	height: auto !important;
 	height: 100%;
 	margin: 0 auto -3.8em;
 }
@@ -121,7 +121,7 @@ a:hover, a:active, a:focus
 {
 	background: #fff;
 	min-width: 780px;
-	margin-left: 190px;
+	margin-left: 160px;
 	position: relative;
 }
 
@@ -159,10 +159,10 @@ a:hover, a:active, a:focus
 .footer 
 {	
 	width: 100%;
-	background: #aaa;
-	clear: both;
-	font: 12px "Times New Roman", Times, serif;
-	height: 1.4em;
+	position: absolute;
+	bottom: 0px;
+	color: #6EBDFC;
+	background: #524F4F;
 }
 
 .footer p

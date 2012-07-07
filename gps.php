@@ -48,28 +48,23 @@ else
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ARMS - GPS Tracking</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css">
 <link href="css/mainStyle.css" rel="stylesheet" type="text/css">
+<link href="css/gps.css" rel="stylesheet" type="text/css">
 <link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
 <script src="js/SpryMenuBar.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-latest.js"></script>
+<script type="text/javascript" src="js/jquery.livequery.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
+<script type="text/javascript" src="js/adjustHeight.js"></script>
 <script type="text/javascript" 
 	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAoFybZX6NkgG5g0kd7HPLprhlIX8nQRMI&sensor=false">
 </script>
 <style>
 <!--
-.control {
-	width: 30%;
-	height: auto;
-	border: 1px solid black;	
-	float: left;
-}
-
-.map {
-	width: auto;
-	height: auto;
-	border: 1px solid red;	
-	float: left;
-}
-
 -->
 </style>
 </head>
@@ -109,14 +104,16 @@ else
 </div><!-- end #insideContainer -->
 </div><!-- end #outsideContainer -->
 
+<div class="controlHolder">
 <div class="control">
 </div>
+</div>
+<div class="mapHolder">
 <div class="map">
+</div>
 </div>
       
 </div><!-- end #wrapper -->
-
-<div id="push"></div>
 
 <div class="footer">
 	<p>Powered by Epic Solutions</p>
