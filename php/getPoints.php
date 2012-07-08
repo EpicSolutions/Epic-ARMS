@@ -7,6 +7,12 @@ $user = $_SESSION['uName'];
 require_once("../$site/php/connect_to_mysql.php");
 require_once('reformatDate.php');	
 
+/*******************************************************************************
+* Headers
+*******************************************************************************/
+// Used for returning json. COMMENT OUT WHEN TESTING
+header('Content-Type: application/json');
+
 // Used to test on webpage. COMMENT OUT WHEN NOT TESTING
 // header('Content-Type: text/plain');
 
@@ -29,12 +35,12 @@ $sql = mysql_query($query) or die(mysql_error());
 *******************************************************************************/
 // Check for loop
 $check = '';
-
+$count = 0;
 // Loop through array
 while($array = mysql_fetch_array($sql)) {
 	// Create array from row
 	$row = array(
-		"id"        => $array["id"],
+		"id"        => 'u' . $array["id"],
 		"time"      => $array["time"],
 		"nickName"  => $array["nick_name"],
 		"cached"    => $array["cached"],
@@ -54,18 +60,17 @@ while($array = mysql_fetch_array($sql)) {
 	if($row["id"] != $check) {
 		$json["points"][$row["id"]] = array();
 		$check = $row["id"];
+		$count = 0;
 	}
 
 	// Add row to correct id
-	$json["points"][$row["id"]][] = $row;
+	$json["points"][$row["id"]]['i' . $count] = $row;
+	$count++;
 }
 
 /*******************************************************************************
-* Return JSON
+* Process query
 *******************************************************************************/
-// Encode JSON
-json_encode($json);
-	
-// Return JSON
-return $json;
+// Return json
+echo json_encode($json);
 ?>
