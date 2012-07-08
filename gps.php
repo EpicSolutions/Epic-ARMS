@@ -52,6 +52,9 @@ else
 <link href="css/mainStyle.css" rel="stylesheet" type="text/css">
 <link href="css/gps.css" rel="stylesheet" type="text/css">
 <link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" 
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAoFybZX6NkgG5g0kd7HPLprhlIX8nQRMI&sensor=false">
+</script>
 <script src="js/SpryMenuBar.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-latest.js"></script>
@@ -60,9 +63,8 @@ else
 <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
 <script type="text/javascript" src="js/adjustHeight.js"></script>
-<script type="text/javascript" 
-	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAoFybZX6NkgG5g0kd7HPLprhlIX8nQRMI&sensor=false">
-</script>
+<script type="text/javascript" src="js/gmap/jquery-ui-map.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
 <style>
 <!--
 -->
