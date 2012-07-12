@@ -132,7 +132,7 @@ $('.control').append('<div class="trucks"></div>');
 for(i = 0; i < trucks.vehicles.length; i++) {
 	var truck = trucks.vehicles[i];
 	$('.trucks').append('<p class="truck ' + truck.name + '">' + truck.name + '</p>');
-	$('.trucks').append('<ul class="' + truck.name + '-list"></ul>');
+	$('.trucks').append('<ul style="display: none;" class="' + truck.name + '-list"></ul>');
 	
 	// Add stops to truck
 	for(j = 0; j < truck.getStops().length; j++) {
@@ -144,10 +144,18 @@ for(i = 0; i < trucks.vehicles.length; i++) {
 	}
 }
 
-// Event to hide stops
+/******************************************************************************* 
+* Toggle truck visibilty in control panel
+*******************************************************************************/
 $('.truck').click(function() {
 	// Get truck name
 	var truck = $(this).attr('class').replace('truck ', '');
+	
+	$(this).parent().find('ul').each(function(index) {
+		if($(this).css('display') == 'block' && $(this).attr('class') != truck + '-list')
+			$(this).toggle(500, function(){});
+	});
+	
 	// toggle display
 	$(this).parent().find('.' + truck + '-list').toggle(500, function() {});
 });
