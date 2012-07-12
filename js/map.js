@@ -1,10 +1,30 @@
 // Map
 $(document).ready(function(){
 /******************************************************************************* 
-* DOM 
+* Initial options & initialization
 *******************************************************************************/
-$('body').append('<div class="trucks"></div>');
-$('.trucks').css('display', 'none');
+	// Initial options
+	var myOptions = {
+		zoom: 8,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+	};
+	
+	// Render map
+	$('.map').gmap(myOptions);
+	
+	// Set center at starting point
+	$('.map').gmap('search', { 'address': 'Dallas, Texas' }, function(results, status) {
+    if ( status === 'OK' ) {
+                $('.map').gmap('get', 'map').panTo(results[0].geometry.location);
+        }
+});
+
+/******************************************************************************* 
+* Add trucks and stops to DOM for quick access 
+*******************************************************************************/
+$('.control').append('<div class="trucks"></div>');
+//$('.trucks').css('display', 'none');
+$('.control').css('overflow', 'scroll');
 
 /******************************************************************************* 
 * Parse JSON
@@ -39,46 +59,18 @@ $.getJSON('php/getPoints.php', function(data) {
 			$('.trucks').find('.i0').addClass('current');
 		}); // End val.each
 	}); // End data.points.each
+	
+	// Print points
+	printPoints();
 }); // End getJSON
-
-/******************************************************************************* 
-* Initial options & initialization
-*******************************************************************************/
-	// Initial options
-	var myOptions = {
-		zoom: 8,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-	};
-	
-	// Render map
-	$('.map').gmap(myOptions);
-	
-	// Set center at starting point
-	$('.map').gmap('search', { 'address': 'Dallas, Texas' }, function(results, status) {
-    if ( status === 'OK' ) {
-                $('.map').gmap('get', 'map').panTo(results[0].geometry.location);
-        }
-});
-
-/******************************************************************************* 
-* Test marker
-*******************************************************************************/	
-	$('.map').gmap(
-		'addMarker', 
-		{ /*id:'m_1',*/ 
-		'position': new google.maps.LatLng(-34.397, 150.644), 
-		'bounds': false }
-	).click(function() {
-        $('.map').gmap('openInfoWindow', { 'content': 'TEXT_AND_HTML_IN_INFOWINDOW' }, this);
-	});
 	
 /******************************************************************************* 
 * Add markers
 *******************************************************************************/
-/*	$.getJSON( 'URL_TO_JSON', function(data) {
-        $.each( data.markers, function(i, m) {
-                $('#map_canvas').gmap('addMarker', { 'position': new google.maps.LatLng(m.latitude, m.longitude), 'bounds':true } );
-        });
-	});
-*/
+function printPoints(){
+	console.log($('.trucks').html());
+}
+
+$('.map').gmap('addMarker', { 'position': new google.maps.LatLng(lat,lon), 'bounds':true } ); 
+
 });
