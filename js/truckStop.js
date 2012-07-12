@@ -5,7 +5,6 @@
  // Stop object
  function Stop(id, time, nickName, cached, tLocation, bLevel, gLevel,
  	tLevel, lat, lon, alt, speed, heading, direction) {
-	 this.current   = false;
 	 this.id        = id;
 	 this.time      = time;
 	 this.nickName  = nickName;
