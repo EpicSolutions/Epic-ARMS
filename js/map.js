@@ -8,25 +8,30 @@ var truck = new Truck();		// Truck object
 var trucks = new function() {   // Singleton to hold trucks
 	// Array for trucks
 	this.vehicles = new Array();
+	
 	// Return trucks
 	this.getTrucks = function() {
 		return this.vehicles;	
 	};
+	
 	// Return current stops
 	this.getCurrent = function() {
-		var i; // counter
 		var currents = new Array();
-		for(i = 0; i < vehicles.length; i++) {
-			currents.push(vehicles[i].getCurrent());
+		
+		for(i = 0; i < this.vehicles.length; i++) {
+			currents.push(this.vehicles[i].getCurrent());
 		}
+		
+		return currents;
 	}
+	
 	// Add truck to vehicle array
 	this.addTruck = function(truck) {
 		this.vehicles.push(truck);
 	}
+	
 	// Return all stops for a vehicle
 	this.getStops = function(truck) {
-		var i;
 		for(i = 0; i < this.vehicles.length; i++) {
 			if(this.vehicles[i].name == truck) {
 				return this.vehicles[i].getStops();
@@ -56,6 +61,9 @@ if ( status === 'OK' ) {
 
 // Run initial call for stops
 parseStopsJSON();
+
+// Add markers to map
+addMarkers(trucks.getCurrent());
 
 /******************************************************************************* 
 * Parse JSON
@@ -98,11 +106,13 @@ function processJSON(data) {
 				value.heading,
 				value.direction);
 				
+			// If new truck...	
 			if(truck.name != value.id){
 				if(truck.name != '')
 					trucks.addTruck(truck);
 				truck = new Truck();
 				truck.name = value.id;
+				truck.currentStop = stop;
 			}
 				
 			// Add stop to truck	
@@ -136,16 +146,23 @@ for(i = 0; i < trucks.vehicles.length; i++) {
 
 // Event to hide stops
 $('.truck').click(function() {
+	// Get truck name
 	var truck = $(this).attr('class').replace('truck ', '');
-	$(this).parent().find('.' + truck + '-list').toggle(); //css({'display': 'none'});
+	// toggle display
+	$(this).parent().find('.' + truck + '-list').toggle(500, function() {});
 });
 
 /******************************************************************************* 
 * Add markers
 *******************************************************************************/
-
-//$('.map').gmap('addMarker', { 'position': new google.maps.LatLng(lat,lon), 'bounds':true } ); 
-
-//}); // End getJSON
-
+function addMarkers(stops) {
+	for(i = 0; i < stops.length; i++) {
+		var stop = stops[i];
+		$('.map').gmap('addMarker', 
+			{ 
+				'position': new google.maps.LatLng(stop.lat,stop.lon), 
+			} 
+		);
+	} 
+}
 }); // End document
