@@ -3,6 +3,7 @@ $(document).ready(function(){
 /******************************************************************************* 
 * Global variables
 *******************************************************************************/
+var i,j,k;						// Counters
 var truck = new Truck();		// Truck object
 var trucks = new function() {   // Singleton to hold trucks
 	// Array for trucks
@@ -19,9 +20,18 @@ var trucks = new function() {   // Singleton to hold trucks
 			currents.push(vehicles[i].getCurrent());
 		}
 	}
+	// Add truck to vehicle array
+	this.addTruck = function(truck) {
+		this.vehicles.push(truck);
+	}
 	// Return all stops for a vehicle
 	this.getStops = function(truck) {
-		return truck.getStops();	
+		var i;
+		for(i = 0; i < this.vehicles.length; i++) {
+			if(this.vehicles[i].name == truck) {
+				return this.vehicles[i].getStops();
+			}
+		}	
 	};	
 };
 
@@ -90,19 +100,45 @@ function processJSON(data) {
 				
 			if(truck.name != value.id){
 				if(truck.name != '')
-					trucks.vehicles.push(truck);
-				truck.clear();
+					trucks.addTruck(truck);
+				truck = new Truck();
 				truck.name = value.id;
 			}
 				
 			// Add stop to truck	
 			truck.addStop(stop);
-			console.log(truck.name);
-			console.log(truck);
 		}); // End val.each
 	}); // End data.points.each
 
 }
+
+/******************************************************************************* 
+* Add trucks and stops to Control Panel
+*******************************************************************************/
+// Add truck holder to control panel
+$('.control').append('<div class="trucks"></div>');
+
+// Add truck objects to controlPanel
+for(i = 0; i < trucks.vehicles.length; i++) {
+	var truck = trucks.vehicles[i];
+	$('.trucks').append('<p class="truck ' + truck.name + '">' + truck.name + '</p>');
+	$('.trucks').append('<ul class="' + truck.name + '-list"></ul>');
+	
+	// Add stops to truck
+	for(j = 0; j < truck.getStops().length; j++) {
+		var stop = truck.stops[j];
+		
+		$('.' + truck.name + '-list').append(
+			'<li class="stop ' + truck.name + '-' + (j+1) + '">' + stop.time + '</li>'
+		);
+	}
+}
+
+// Event to hide stops
+$('.truck').click(function() {
+	var truck = $(this).attr('class').replace('truck ', '');
+	$(this).parent().find('.' + truck + '-list').toggle(); //css({'display': 'none'});
+});
 
 /******************************************************************************* 
 * Add markers
@@ -111,13 +147,5 @@ function processJSON(data) {
 //$('.map').gmap('addMarker', { 'position': new google.maps.LatLng(lat,lon), 'bounds':true } ); 
 
 //}); // End getJSON
-
-/******************************************************************************* 
-* Add trucks and stops to Control Panel
-*******************************************************************************/
-// Add trucks to control panel
-$('.control').append('<div class="trucks"></div>');
-//$('.trucks').css('display', 'none');
-$('.control').css('overflow', 'scroll');
 
 }); // End document
