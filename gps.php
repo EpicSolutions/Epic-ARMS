@@ -64,6 +64,7 @@ else
 <script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
 <script type="text/javascript" src="js/adjustHeight.js"></script>
 <script type="text/javascript" src="js/gmap/jquery-ui-map.js"></script>
+<script type="text/javascript" src="js/truckStop.js"></script>
 <script type="text/javascript" src="js/map.js"></script>
 <style>
 <!--

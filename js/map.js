@@ -1,6 +1,31 @@
 // Map
 $(document).ready(function(){
 /******************************************************************************* 
+* Global variables
+*******************************************************************************/
+var truck = new Truck();		// Truck object
+var trucks = new function() {   // Singleton to hold trucks
+	// Array for trucks
+	this.vehicles = new Array();
+	// Return trucks
+	this.getTrucks = function() {
+		return this.vehicles;	
+	};
+	// Return current stops
+	this.getCurrent = function() {
+		var i; // counter
+		var currents = new Array();
+		for(i = 0; i < vehicles.length; i++) {
+			currents.push(vehicles[i].getCurrent());
+		}
+	}
+	// Return all stops for a vehicle
+	this.getStops = function(truck) {
+		return truck.getStops();	
+	};	
+};
+
+/******************************************************************************* 
 * Initial options & initialization
 *******************************************************************************/
 	// Initial options
@@ -19,58 +44,70 @@ $(document).ready(function(){
         }
 });
 
-/******************************************************************************* 
-* Add trucks and stops to DOM for quick access 
-*******************************************************************************/
-$('.control').append('<div class="trucks"></div>');
-//$('.trucks').css('display', 'none');
-$('.control').css('overflow', 'scroll');
+// Run initial call for stops
+parseStopsJSON();
 
 /******************************************************************************* 
 * Parse JSON
 *******************************************************************************/
-$.getJSON('php/getPoints.php', function(data) {
-	$.each(data.points, function(i, val) {
-		$('.trucks').append('<div class="' + i + '"></div>');
-		
+function parseStopsJSON() {
+	// global object to catch json
+	var jsonData = {};			
+    
+    // Run ajax call to retrieve JSON
+    $.ajax({
+        url: "php/getPoints.php",
+        async: false,
+        dataType: 'json',
+        success: function(data) {
+                processJSON(data);
+        }
+    });
+}
+/******************************************************************************* 
+* Process JSON
+*******************************************************************************/
+function processJSON(data) {
+	$.each(data.points, function(i, val) {		
 		$.each(val, function(key, value) {
-			// Append each stop to the truck
-			$('.' + i).append('<ul id="' + i + '-' + key + 
-				'" class="' + key + '"></ul>');
-			
-			// Append details to stop
-			var list = $('#' + i + '-' + key);
-			list.append('<li class="id">'        + value.id        + '</li>');
-			list.append('<li class="time">'      + value.time      + '</li>');
-			list.append('<li class="nickName">'  + value.nickName  + '</li>');
-			list.append('<li class="cached">'    + value.cached    + '</li>');
-			list.append('<li class="tLocation">' + value.tLocation + '</li>');
-			list.append('<li class="bLevel">'    + value.bLevel    + '</li>');
-			list.append('<li class="gLevel">'    + value.gLevel    + '</li>');
-			list.append('<li class="tLevel">'    + value.tLevel    + '</li>');
-			list.append('<li class="lat">'       + value.lat       + '</li>');
-			list.append('<li class="lon">'       + value.lon       + '</li>');
-			list.append('<li class="alt">'       + value.alt       + '</li>');
-			list.append('<li class="speed">'     + value.speed     + '</li>');
-			list.append('<li class="heading">'   + value.heading   + '</li>');
-			list.append('<li class="direction">' + value.direction + '</li>');
-			
-			// Add current class to first(current) stop
-			$('.trucks').find('.i0').addClass('current');
+			// Create stop object
+			var stop = new Stop(
+				value.id,
+				value.time,
+				value.nickName,
+				value.cached,
+				value.tLocation,
+				value.bLevel,
+				value.gLevel,
+				value.tLevel,
+				value.lat,
+				value.lon,
+				value.alt,
+				value.speed,
+				value.heading,
+				value.direction);
+				
+			// Add stop to truck	
+			trucks.addStop(stop);
 		}); // End val.each
 	}); // End data.points.each
-	
-	// Print points
-	printPoints();
-}); // End getJSON
-	
+
+}
+
 /******************************************************************************* 
 * Add markers
 *******************************************************************************/
-function printPoints(){
-	console.log($('.trucks').html());
-}
 
-$('.map').gmap('addMarker', { 'position': new google.maps.LatLng(lat,lon), 'bounds':true } ); 
+//$('.map').gmap('addMarker', { 'position': new google.maps.LatLng(lat,lon), 'bounds':true } ); 
 
-});
+//}); // End getJSON
+
+/******************************************************************************* 
+* Add trucks and stops to Control Panel
+*******************************************************************************/
+// Add trucks to control panel
+$('.control').append('<div class="trucks"></div>');
+//$('.trucks').css('display', 'none');
+$('.control').css('overflow', 'scroll');
+
+}); // End document
