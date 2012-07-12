@@ -28,20 +28,20 @@ var trucks = new function() {   // Singleton to hold trucks
 /******************************************************************************* 
 * Initial options & initialization
 *******************************************************************************/
-	// Initial options
-	var myOptions = {
-		zoom: 8,
-		mapTypeId: google.maps.MapTypeId.ROADMAP,
-	};
-	
-	// Render map
-	$('.map').gmap(myOptions);
-	
-	// Set center at starting point
-	$('.map').gmap('search', { 'address': 'Dallas, Texas' }, function(results, status) {
-    if ( status === 'OK' ) {
-                $('.map').gmap('get', 'map').panTo(results[0].geometry.location);
-        }
+// Initial options
+var myOptions = {
+	zoom: 8,
+	mapTypeId: google.maps.MapTypeId.ROADMAP,
+};
+
+// Render map
+$('.map').gmap(myOptions);
+
+// Set center at starting point
+$('.map').gmap('search', { 'address': 'Dallas, Texas' }, function(results, status) {
+if ( status === 'OK' ) {
+            $('.map').gmap('get', 'map').panTo(results[0].geometry.location);
+    }
 });
 
 // Run initial call for stops
@@ -70,6 +70,7 @@ function parseStopsJSON() {
 function processJSON(data) {
 	$.each(data.points, function(i, val) {		
 		$.each(val, function(key, value) {
+		
 			// Create stop object
 			var stop = new Stop(
 				value.id,
@@ -87,8 +88,17 @@ function processJSON(data) {
 				value.heading,
 				value.direction);
 				
+			if(truck.name != value.id){
+				if(truck.name != '')
+					trucks.vehicles.push(truck);
+				truck.clear();
+				truck.name = value.id;
+			}
+				
 			// Add stop to truck	
-			trucks.addStop(stop);
+			truck.addStop(stop);
+			console.log(truck.name);
+			console.log(truck);
 		}); // End val.each
 	}); // End data.points.each
 

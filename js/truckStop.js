@@ -49,6 +49,14 @@
 	 this.getLength = function(){
 		 return this.length;
 	 }
+	 
+	 // Clear truck
+	 this.clear = function() {
+		this.name = '';
+		this.length = 0;
+		this.currentStop = new Stop();
+		this.stops = new Array(); 
+	 };
  }
  
  // Button object
