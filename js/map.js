@@ -3,7 +3,7 @@ $(document).ready(function(){
 /******************************************************************************* 
 * Global variables
 *******************************************************************************/
-var i,j,k;						// Counters
+var i,j,k, numTrucks;						// Counters
 var truck = new Truck();		// Truck object
 var trucks = new function() {   // Singleton to hold trucks
 	// Array for trucks
@@ -14,7 +14,7 @@ var trucks = new function() {   // Singleton to hold trucks
 		return this.vehicles;	
 	};
 	
-	// Return current stops
+	// Return current markers
 	this.getCurrent = function() {
 		var currents = new Array();
 		
@@ -30,11 +30,11 @@ var trucks = new function() {   // Singleton to hold trucks
 		this.vehicles.push(truck);
 	}
 	
-	// Return all stops for a vehicle
-	this.getStops = function(truck) {
+	// Return all markers for a vehicle
+	this.getMarkers = function(truck) {
 		for(i = 0; i < this.vehicles.length; i++) {
 			if(this.vehicles[i].name == truck) {
-				return this.vehicles[i].getStops();
+				return this.vehicles[i].getMarkers();
 			}
 		}	
 	};	
@@ -59,16 +59,18 @@ if ( status === 'OK' ) {
     }
 });
 
-// Run initial call for stops
-parseStopsJSON();
+// Run initial call for markers
+parseMarkersJSON();
 
 // Add markers to map
 addMarkers(trucks.getCurrent());
 
+console.log(trucks);
+
 /******************************************************************************* 
 * Parse JSON
 *******************************************************************************/
-function parseStopsJSON() {
+function parseMarkersJSON() {
 	// global object to catch json
 	var jsonData = {};			
     
@@ -78,7 +80,7 @@ function parseStopsJSON() {
         async: false,
         dataType: 'json',
         success: function(data) {
-                processJSON(data);
+        	processJSON(data);
         }
     });
 }
@@ -86,11 +88,14 @@ function parseStopsJSON() {
 * Process JSON
 *******************************************************************************/
 function processJSON(data) {
+	// Get the number of trucks
+	numTrucks = data.rows;
+	
 	$.each(data.points, function(i, val) {		
 		$.each(val, function(key, value) {
 		
-			// Create stop object
-			var stop = new Stop(
+			// Create marker object
+			var marker = new Marker(
 				value.id,
 				value.time,
 				value.nickName,
@@ -108,22 +113,30 @@ function processJSON(data) {
 				
 			// If new truck...	
 			if(truck.name != value.id){
+				// If truck object doesn't exist, create it
 				if(truck.name != '')
 					trucks.addTruck(truck);
-				truck = new Truck();
-				truck.name = value.id;
-				truck.currentStop = stop;
+					
+				truck               = new Truck();
+				truck.name          = value.id;
+				truck.nickName      = value.nickName;
+				truck.currentMarker = marker;
 			}
 				
-			// Add stop to truck	
-			truck.addStop(stop);
+			// Add marker to truck	
+			truck.addMarker(marker);
+			
+			// Add last truck
+			if(key.replace('i', '') == numTrucks)
+				trucks.addTruck(truck);
+				
 		}); // End val.each
 	}); // End data.points.each
 
 }
 
 /******************************************************************************* 
-* Add trucks and stops to Control Panel
+* Add trucks and markers to Control Panel
 *******************************************************************************/
 // Add truck holder to control panel
 $('.control').append('<div class="trucks"></div>');
@@ -131,15 +144,80 @@ $('.control').append('<div class="trucks"></div>');
 // Add truck objects to controlPanel
 for(i = 0; i < trucks.vehicles.length; i++) {
 	var truck = trucks.vehicles[i];
-	$('.trucks').append('<p class="truck ' + truck.name + '">' + truck.name + '</p>');
-	$('.trucks').append('<ul style="display: none;" class="' + truck.name + '-list"></ul>');
+	$('.trucks').append('<p class="button truck black ' + truck.name + '">' + truck.nickName + 
+		'</p><div  style="display: none;" class="panel ' + truck.name + '-panel"></div>');
 	
-	// Add stops to truck
-	for(j = 0; j < truck.getStops().length; j++) {
-		var stop = truck.stops[j];
+	var panel = '.' + truck.name + '-panel';
+	
+	// Add top box
+	$(panel).append('<div class="top-box"></div>');
+	
+	// Add Phone ID
+	$(panel + ' .top-box').append('<div class="id">Phone ID: ' + 
+		truck.name.replace('u','') + '</div>');
+
+	// Add date drop-down list
+	$(panel + ' .top-box').append('<div class="date-drop">Date: <select></select></div>');
+	
+	// Options
+	var date = new Date();
+	$(panel + ' select').append('<option>' + 
+		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
+		'</option>');
+		
+	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
+	$(panel + ' select').append('<option>' + 
+		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
+		'</option>');
+	
+	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
+	$(panel + ' select').append('<option>' + 
+		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
+		'</option>');
+		
+	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
+	$(panel + ' select').append('<option>' + 
+		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
+		'</option>');
+		
+	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
+	$(panel + ' select').append('<option>' + 
+		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
+		'</option>');
+		
+	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
+	$(panel + ' select').append('<option>' + 
+		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
+		'</option>');
+	
+	
+	// Add list
+	$(panel).append('<ul class="' + truck.name + '-list"></ul>');
+	
+	// Add markers to truck
+	for(j = 0; j < truck.getMarkers().length; j++) {
+		var marker = truck.markers[j];
+		
+		// Parse time from marker time stamp
+		var time = marker.time.split(' ');
+		time = time[1].split(':');
+		time = time[0] + ':' + time[1];
 		
 		$('.' + truck.name + '-list').append(
-			'<li class="stop ' + truck.name + '-' + (j+1) + '">' + stop.time + '</li>'
+			'<li class="marker ' + truck.name + '-' + (j+1) + '">' +
+				'<p>' +
+					'Time: ' + time +
+					'<span>' +
+						 'Speed: ' + marker.speed + ' mph' +
+					'</span>' + 
+				'</p>' +
+				'<p>' +
+					'Heading: ' + ((marker.heading == 0) ? 'N/A' : marker.heading) + 
+					'<span>' +
+						'Battery: ' + marker.bLevel + '%' +
+					'</span>' +
+			    '</p>' +
+			'</li>'
 		);
 	}
 }
@@ -149,26 +227,27 @@ for(i = 0; i < trucks.vehicles.length; i++) {
 *******************************************************************************/
 $('.truck').click(function() {
 	// Get truck name
-	var truck = $(this).attr('class').replace('truck ', '');
+	var truck = $(this).attr('class').replace('button truck black ', '');
 	
-	$(this).parent().find('ul').each(function(index) {
-		if($(this).css('display') == 'block' && $(this).attr('class') != truck + '-list')
+	$(this).parent().find('.panel').each(function(index) {
+		if($(this).css('display') == 'block' && $(this).attr('class') != 'panel ' + 
+			truck + '-panel')
 			$(this).toggle(500, function(){});
 	});
 	
 	// toggle display
-	$(this).parent().find('.' + truck + '-list').toggle(500, function() {});
+	$(this).parent().find('.' + truck + '-panel').toggle(500, function() {});
 });
 
 /******************************************************************************* 
 * Add markers
 *******************************************************************************/
-function addMarkers(stops) {
-	for(i = 0; i < stops.length; i++) {
-		var stop = stops[i];
+function addMarkers(markers) {
+	for(i = 0; i < markers.length; i++) {
+		var marker = markers[i];
 		$('.map').gmap('addMarker', 
 			{ 
-				'position': new google.maps.LatLng(stop.lat,stop.lon), 
+				'position': new google.maps.LatLng(marker.lat,marker.lon), 
 			} 
 		);
 	} 

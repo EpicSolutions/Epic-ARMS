@@ -19,7 +19,10 @@ header('Content-Type: application/json');
 /*******************************************************************************
 * Start json array
 *******************************************************************************/
-$json = array("points" => array());
+$json = array(
+	"count" => 0,			// Number of trucks to return
+	"points" => array(),	// Array of stops
+);
 
 /*******************************************************************************
 * Query DB
@@ -61,6 +64,7 @@ while($array = mysql_fetch_array($sql)) {
 		$json["points"][$row["id"]] = array();
 		$check = $row["id"];
 		$count = 0;
+		$json["rows"] += 1; // Increment number of trucks
 	}
 
 	// Add row to correct id
