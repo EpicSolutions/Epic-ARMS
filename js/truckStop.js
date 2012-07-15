@@ -2,8 +2,8 @@
  * This file contains the objects for maps.php
  ******************************************************/
  
- // Stop object
- function Stop(id, time, nickName, cached, tLocation, bLevel, gLevel,
+ // marker object
+ function Marker(id, time, nickName, cached, tLocation, bLevel, gLevel,
  	tLevel, lat, lon, alt, speed, heading, direction) {
 	 this.id        = id;
 	 this.time      = time;
@@ -24,24 +24,25 @@
  // Truck object
  function Truck() {
  	 this.name = '';
+ 	 this.nickName = '';
      this.length = 0;
-	 this.currentStop = new Stop();
-	 this.stops = new Array();
+	 this.currentMarker = new Marker();
+	 this.markers = new Array();
 	 
-	 // Return current stop
+	 // Return current marker
 	 this.getCurrent = function() {
-		 return this.currentStop;
+		 return this.currentMarker;
 	 };
 	 
-	 // Return all stops
-	 this.getStops = function() {
-		 return this.stops;
+	 // Return all markers
+	 this.getMarkers = function() {
+		 return this.markers;
 	 };
 	 
-	 // Add a stop
-	 this.addStop = function(stop) {
+	 // Add a marker
+	 this.addMarker = function(marker) {
 	 	this.length++;
-	 	this.stops.push(stop);
+	 	this.markers.push(marker);
 	 };
 	 
 	 // Get length
@@ -52,13 +53,14 @@
 	 // Clear truck
 	 this.clear = function() {
 		this.name = '';
+		this.nickName = '';
 		this.length = 0;
-		this.currentStop = new Stop();
-		this.stops = new Array(); 
+		this.currentMarker = new marker();
+		this.markers = new Array(); 
 	 };
  }
  
  // Button object
- function Button(stop) {
+ function Button(marker) {
 	 // Will work on this later!
  }
