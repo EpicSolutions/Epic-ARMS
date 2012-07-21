@@ -1,7 +1,8 @@
 @charset "utf-8";
 
 .controlHolder {
-	width: 253px;
+	width: 270px;
+	height: 100%;
 	position: relative;
 	top: -100px;
 	float: left;
@@ -18,7 +19,8 @@
 	border-right: 1px solid black;
 	border-top: 1px solid black;	
 	background: #f9f9f9;
-	overflow: scroll;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .map {
@@ -31,7 +33,7 @@
 .button {
 	display: inline-block;
 	outline: none;
-	width: 250px;
+	width: 253px;
 	height: 40px;
 	cursor: pointer;
 	text-align: center;
@@ -105,7 +107,6 @@
 
 .trucks li p {
 	cursor: default;
-	padding-left: 5px;
 }
 
 .trucks li span {
@@ -122,7 +123,10 @@
 	padding-top: 10px;
 }
 
-.trucks ul:last-child {
-	padding-bottom: 20px;
+.noRoutes {
+    color: red;
+    font-weight: bold;
+    font-size: 14pt;
+    list-style: none;
+    text-align: center;
 }
-

@@ -3,9 +3,10 @@ $(document).ready(function(){
 /******************************************************************************* 
 * Global variables
 *******************************************************************************/
-var i,j,k, numTrucks;						// Counters
-var truck = new Truck();		// Truck object
-var trucks = new function() {   // Singleton to hold trucks
+var i,j,k, numTrucks;			// Counters
+
+var truckObj = new Truck();		// Truck object
+function Trucks() {  			// Singleton to hold trucks
 	// Array for trucks
 	this.vehicles = new Array();
 	
@@ -37,8 +38,10 @@ var trucks = new function() {   // Singleton to hold trucks
 				return this.vehicles[i].getMarkers();
 			}
 		}	
-	};	
+	};
 };
+
+var trucks = new Trucks();
 
 /******************************************************************************* 
 * Initial options & initialization
@@ -59,8 +62,10 @@ if ( status === 'OK' ) {
     }
 });
 
-// Run initial call for markers
-parseMarkersJSON();
+// Run initial call for markers parseMarkersJSON();
+var date = new Date();
+date = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate(); 
+parseMarkersJSON(date);
 
 // Add markers to map
 addMarkers(trucks.getCurrent());
@@ -70,13 +75,15 @@ console.log(trucks);
 /******************************************************************************* 
 * Parse JSON
 *******************************************************************************/
-function parseMarkersJSON() {
+function parseMarkersJSON(date) {
 	// global object to catch json
 	var jsonData = {};			
     
     // Run ajax call to retrieve JSON
     $.ajax({
+	type: "POST",
         url: "php/getPoints.php",
+	data: {date: date},
         async: false,
         dataType: 'json',
         success: function(data) {
@@ -110,29 +117,28 @@ function processJSON(data) {
 				value.speed,
 				value.heading,
 				value.direction);
-				
+
 			// If new truck...	
-			if(truck.name != value.id){
+			if(truckObj.name != value.id){
 				// If truck object doesn't exist, create it
-				if(truck.name != '')
+				if(truckObj.name != '')
 					trucks.addTruck(truck);
 					
-				truck               = new Truck();
-				truck.name          = value.id;
-				truck.nickName      = value.nickName;
-				truck.currentMarker = marker;
+				truckObj               = new Truck();
+				truckObj.name          = value.id;
+				truckObj.nickName      = value.nickName;
+				truckObj.currentMarker = marker;
 			}
 				
 			// Add marker to truck	
-			truck.addMarker(marker);
+			truckObj.addMarker(marker);
 			
 			// Add last truck
 			if(key.replace('i', '') == numTrucks)
-				trucks.addTruck(truck);
+				trucks.addTruck(truckObj);
 				
 		}); // End val.each
 	}); // End data.points.each
-
 }
 
 /******************************************************************************* 
@@ -157,38 +163,32 @@ for(i = 0; i < trucks.vehicles.length; i++) {
 		truck.name.replace('u','') + '</div>');
 
 	// Add date drop-down list
-	$(panel + ' .top-box').append('<div class="date-drop">Date: <select></select></div>');
+	$(panel + ' .top-box').append('<div class="date-drop">Date: <select class="date-pick"></select></div>');
 	
 	// Options
 	var date = new Date();
-	$(panel + ' select').append('<option>' + 
-		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
-		'</option>');
+	$(panel + ' select').append('<option value="' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + 
+		'">Today</option>');
 		
 	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
-	$(panel + ' select').append('<option>' + 
-		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
-		'</option>');
+	$(panel + ' select').append('<option value="' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
+                '">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</option>');
 	
 	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
-	$(panel + ' select').append('<option>' + 
-		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
-		'</option>');
+	$(panel + ' select').append('<option value="' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
+                '">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</option>');
 		
 	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
-	$(panel + ' select').append('<option>' + 
-		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
-		'</option>');
+	$(panel + ' select').append('<option value="' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
+                '">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</option>');
 		
 	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
-	$(panel + ' select').append('<option>' + 
-		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
-		'</option>');
+	$(panel + ' select').append('<option value="' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
+                '">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</option>');
 		
 	date = new Date(date.getTime() - 1000 * 60 * 60 * 24 * 1);
-	$(panel + ' select').append('<option>' + 
-		date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + 
-		'</option>');
+	$(panel + ' select').append('<option value="' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() +
+                '">' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + '</option>');
 	
 	
 	// Add list
@@ -237,6 +237,10 @@ $('.truck').click(function() {
 	
 	// toggle display
 	$(this).parent().find('.' + truck + '-panel').toggle(500, function() {});
+	
+	var win = $("body");
+	win.width(win.width() - 1);
+	win.width(win.width() + 1);
 });
 
 /******************************************************************************* 
@@ -252,4 +256,67 @@ function addMarkers(markers) {
 		);
 	} 
 }
+
+/*******************************************************************************
+* Change Date
+*******************************************************************************/
+$(".date-pick").change(function() {
+	var name = $(this).attr("class");
+	var date = $('.' + name + ' option:selected').val();
+
+	// Clear trucks 
+	trucks = new Trucks();
+ 	truckObj = new Truck();
+	
+	// Get new markers
+	parseMarkersJSON(date);
+	
+	// Get list name
+	var list = $(this).parent().parent().parent().find('ul').attr('class').replace('-list','');
+
+	// If no markers...
+	if(trucks.vehicles.length < 1) {
+	    $('.' + list + '-list').html(
+	        '<li class="noRoutes">No data for this date</li>'
+	    );
+	}	
+
+	// Get correct truck
+	for(i = 0; i < trucks.vehicles.length; i++){
+	    var truck = trucks.vehicles[i];
+	    
+	    // If truck matches...
+ 	    if(truck.name == list) {
+	   	$('.' + truck.name + '-list').html('');
+
+	        // Add markers to truck
+       		for(j = 0; j < truck.getMarkers().length; j++) {
+                    var marker = truck.markers[j];
+	            
+		    // Parse time from marker time stamp
+                    var time = marker.time.split(' ');
+                    time = time[1].split(':');
+                    time = time[0] + ':' + time[1];
+
+                    $('.' + truck.name + '-list').append(
+                        '<li class="marker ' + truck.name + '-' + (j+1) + '">' +
+                            '<p>' +
+                                'Time: ' + time +
+                                '<span>' +
+                                    'Speed: ' + marker.speed + ' mph' +
+                                '</span>' +
+                            '</p>' +
+                            '<p>' +
+                                'Heading: ' + ((marker.heading == 0) ? 'N/A' : marker.heading) +
+                                '<span>' +
+                                    'Battery: ' + marker.bLevel + '%' +
+                                '</span>' +
+                            '</p>' +
+                        '</li>'
+                    );
+	        } // End add markers to truck
+	    } // End if truck == list
+	} // End get correct truck	
+});
+
 }); // End document
