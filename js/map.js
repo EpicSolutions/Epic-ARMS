@@ -3,9 +3,10 @@ $(document).ready(function(){
 /******************************************************************************* 
 * Global variables
 *******************************************************************************/
-var i,j,k, numTrucks;			// Counters
+var i,j,k, numTrucks;				// Counters
+var truckObj = new Truck();		 	// Truck object
+var currentMarkers = new Array(); 	// Current markers on map
 
-var truckObj = new Truck();		// Truck object
 function Trucks() {  			// Singleton to hold trucks
 	// Array for trucks
 	this.vehicles = new Array();
@@ -63,14 +64,15 @@ if ( status === 'OK' ) {
 });
 
 // Run initial call for markers parseMarkersJSON();
-var date = new Date();
+// Remove parameters in side before pushing live
+var date = new Date('2012', '06', '21');
 date = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate(); 
 parseMarkersJSON(date);
 
+console.log(trucks.getCurrent());
+
 // Add markers to map
 addMarkers(trucks.getCurrent());
-
-console.log(trucks);
 
 /******************************************************************************* 
 * Parse JSON
@@ -95,6 +97,10 @@ function parseMarkersJSON(date) {
 * Process JSON
 *******************************************************************************/
 function processJSON(data) {
+	
+	// Reset map markers
+	currentMarkers = new Array();
+	
 	// Get the number of trucks
 	numTrucks = data.rows;
 	
@@ -117,6 +123,9 @@ function processJSON(data) {
 				value.speed,
 				value.heading,
 				value.direction);
+
+			// Add marker to currentMarkers
+			currentMarkers.push(marker)
 
 			// If new truck...	
 			if(truckObj.name != value.id){
@@ -167,7 +176,8 @@ for(i = 0; i < trucks.vehicles.length; i++) {
 	$(panel + ' .top-box').append('<div class="date-drop">Date: <select class="date-pick"></select></div>');
 	
 	// Options
-	var date = new Date();
+	// Remove parameters before pushing live
+	var date = new Date('2012', '06', '21');
 	$(panel + ' select').append('<option value="' + date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + 
 		'">Today</option>');
 		
@@ -195,32 +205,8 @@ for(i = 0; i < trucks.vehicles.length; i++) {
 	// Add list
 	$(panel).append('<ul class="' + truck.name + '-list"></ul>');
 	
-	// Add markers to truck
-	for(j = 0; j < truck.getMarkers().length; j++) {
-		var marker = truck.markers[j];
-		
-		// Parse time from marker time stamp
-		var time = marker.time.split(' ');
-		time = time[1].split(':');
-		time = time[0] + ':' + time[1];
-		
-		$('.' + truck.name + '-list').append(
-			'<li class="marker ' + truck.name + '-' + (j+1) + '">' +
-				'<p>' +
-					'Time: ' + time +
-					'<span>' +
-						 'Speed: ' + marker.speed + ' mph' +
-					'</span>' + 
-				'</p>' +
-				'<p>' +
-					'Heading: ' + ((marker.heading == 0) ? 'N/A' : marker.heading) + 
-					'<span>' +
-						'Battery: ' + marker.bLevel + '%' +
-					'</span>' +
-			    '</p>' +
-			'</li>'
-		);
-	}
+	// Add the markers to the control panel
+	addToConrtrol(truck);
 }
 
 /******************************************************************************* 
@@ -237,11 +223,21 @@ $('.truck').click(function() {
 	});
 	
 	// toggle display
-	$(this).parent().find('.' + truck + '-panel').toggle(500, function() {});
-	
+	$(this).parent().find('.' + truck + '-panel').toggle(300, function() {});
+
 	var win = $("body");
 	win.width(win.width() - 1);
 	win.width(win.width() + 1);
+	
+	// Populate markers
+	var currentCheck = $('.' + truck + '-panel').css('opacity');
+	if(currentCheck == 0)
+		$('.date-pick').change();
+	else {
+		clearMarkers();
+		addMarkers(trucks.getCurrent());
+	}
+	
 });
 
 /******************************************************************************* 
@@ -264,6 +260,9 @@ function addMarkers(markers) {
 $(".date-pick").change(function() {
 	var name = $(this).attr("class");
 	var date = $('.' + name + ' option:selected').val();
+
+	// Clear markers
+	clearMarkers();
 
 	// Clear trucks 
 	trucks = new Trucks();
@@ -288,36 +287,56 @@ $(".date-pick").change(function() {
 	    
 	    // If truck matches...
  	    if(truck.name == list) {
-	   	$('.' + truck.name + '-list').html('');
+	   		$('.' + truck.name + '-list').html('');
 
-	        // Add markers to truck
-       		for(j = 0; j < truck.getMarkers().length; j++) {
-                    var marker = truck.markers[j];
-	            
-		    // Parse time from marker time stamp
-                    var time = marker.time.split(' ');
-                    time = time[1].split(':');
-                    time = time[0] + ':' + time[1];
-
-                    $('.' + truck.name + '-list').append(
-                        '<li class="marker ' + truck.name + '-' + (j+1) + '">' +
-                            '<p>' +
-                                'Time: ' + time +
-                                '<span>' +
-                                    'Speed: ' + marker.speed + ' mph' +
-                                '</span>' +
-                            '</p>' +
-                            '<p>' +
-                                'Heading: ' + ((marker.heading == 0) ? 'N/A' : marker.heading) +
-                                '<span>' +
-                                    'Battery: ' + marker.bLevel + '%' +
-                                '</span>' +
-                            '</p>' +
-                        '</li>'
-                    );
-	        } // End add markers to truck
+	        // Add the markers to the control panel
+			addToConrtrol(truck);
+			
+			// Add markers to map
+    		addMarkers(truck.getMarkers());
+			
 	    } // End if truck == list
 	} // End get correct truck	
 });
+
+// Add Markers to the control panel
+function addToConrtrol(truck) {
+	// Add markers to truck
+	for(j = 0; j < truck.getMarkers().length; j++) {
+            var marker = truck.markers[j];
+        
+    	// Parse time from marker time stamp
+        var time = marker.time.split(' ');
+        time = time[1].split(':');
+        time = time[0] + ':' + time[1];
+
+        $('.' + truck.name + '-list').append(
+            '<li class="marker ' + truck.name + '-' + (j+1) + '">' +
+                '<p>' +
+                    'Time: ' + time +
+                    '<span>' +
+                        'Speed: ' + marker.speed + ' mph' +
+                    '</span>' +
+                '</p>' +
+                '<p>' +
+                    'Heading: ' + ((marker.heading == 0) ? 'N/A' : marker.heading) +
+                    '<span>' +
+                        'Battery: ' + marker.bLevel + '%' +
+                    '</span>' +
+                '</p>' +
+                '<div class="pointCoord" style="display: none;">' +
+                	'<div class="lat">' + marker.lat + '</div>' +
+                	'<div class="lon">' + marker.lon + '</div>' +
+                '</div>' +
+            '</li>'
+            );
+    } // End add markers to truck
+    
+} // End addToControl
+
+// Clear markers
+function clearMarkers() {
+	$('.map').gmap('clear', 'markers');
+}
 
 }); // End document

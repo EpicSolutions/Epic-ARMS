@@ -2,10 +2,13 @@
 // Start session
 session_start();
 $site = $_SESSION['site'];
-$user = $_SESSION['uName']; 
+$user = $_SESSION['uName'];
 // Include needed files
 require_once("../$site/php/connect_to_mysql.php");
 require_once('reformatDate.php');	
+
+// Get pushed data
+$date = date('Y-m-d', strtotime($_POST["date"]));
 
 /*******************************************************************************
 * Headers
@@ -20,6 +23,7 @@ header('Content-Type: application/json');
 * Start json array
 *******************************************************************************/
 $json = array(
+	"date" => $date,
 	"count" => 0,			// Number of trucks to return
 	"points" => array(),	// Array of stops
 );
@@ -28,7 +32,10 @@ $json = array(
 * Query DB
 *******************************************************************************/
 // Query string
-$query = "SELECT * FROM tracking ORDER BY id ASC, time DESC";
+$query = "SELECT * 
+	  FROM tracking
+	  WHERE time LIKE '$date%'
+	  ORDER BY id ASC, time DESC";
 
 // Query
 $sql = mysql_query($query) or die(mysql_error());
@@ -55,7 +62,7 @@ while($array = mysql_fetch_array($sql)) {
 		"lon"       => $array["longitude"],
 		"alt"       => $array["altitude"],
 		"speed"     => $array["speed"],
-		"heading"   => $array["heading"], 
+		"heading"   => $array["heading"],
 		"direction" => $array["direction"],
 	);
 	
