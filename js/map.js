@@ -121,8 +121,9 @@ function processJSON(data) {
 			// If new truck...	
 			if(truckObj.name != value.id){
 				// If truck object doesn't exist, create it
-				if(truckObj.name != '')
-					trucks.addTruck(truck);
+				if(truckObj.name != '') {
+					trucks.addTruck(truckObj);
+				}
 					
 				truckObj               = new Truck();
 				truckObj.name          = value.id;
