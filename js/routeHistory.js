@@ -42,7 +42,11 @@ $('.datePicker').change(function(event){
 				var furniture = $(this).find("furniture").text();
 				var stops     = $(this).find("stops").text();
 				var total     = parseFloat(clothing) + parseFloat(misc);
-				var avg       = (total / stops).toFixed(2);					
+				var avg       = (total / stops).toFixed(2);
+				
+				if(isNaN(avg)) {
+					avg = 0.00;
+				}					
 				
 				
 				if($(this).find("result").text() != "No Routes")
@@ -50,6 +54,7 @@ $('.datePicker').change(function(event){
 					// String to add row to table
 					row += '<tr>' +
 						  	  '<td class="date">'     + date     + '</td>' +
+						  	  '<td class="route">'    + route    + '</td>' +
 						  	  '<td class="cards">'    + cards    + '</td>' +
 						   	  '<td class="calls">'    + calls    + '</td>' +
 						   	  '<td class="stops">'    + stops    + '</td>' +
@@ -87,7 +92,8 @@ $('.datePicker').change(function(event){
 // When the viewType radio changes perform date change
 $('input:radio[name=viewType]').change(function(event) {
 	
-	$('.datePicker').change();
+	if($('.datePicker').val() != '')
+		$('.datePicker').change();
 });
 
 }); // End Schedule Routes

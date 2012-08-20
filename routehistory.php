@@ -114,6 +114,7 @@ else
             <thead>
             <tr>
                 <th>Date</th>
+                <th>Route</th>
                 <th>Cards</th>
                 <th>Calls</th>
                 <th>Stops</th>

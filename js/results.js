@@ -36,7 +36,7 @@ $('#submit').live('click', function(event){
 	if($('#clothLB').val() != '')
 		cloth 			  = $('#clothLB').val();
 	else
-		cloth			  = $('#clothCart').val();
+		cloth			  = $('#clothCart').val() * 950;
 	var furn;
 	if($('#furnLB').val() != '')
 		cloth 			  = $('#furnLB').val();
@@ -46,7 +46,8 @@ $('#submit').live('click', function(event){
 	if($('#miscLB').val() != '')
 		misc 			  = $('#miscLB').val();
 	else
-		misc			  = $('#miscCart').val();
+		misc			  = $('#miscCart').val() * 950;
+		
 	var stops 			  = $('#stop').val();
 	var avg 			  = $('#avg').val();
 	var route 			  = $('#route').val();
@@ -266,7 +267,7 @@ $('#stop').live('blur',function(event){
 	|| ($('#clothCart').val != '' || $('#furnPiece').val() != '' || $('#miscCart').val() != '' || !isNaN($('#stop').val()))))
 	{
 		stops = parseFloat($('#stop').val());
-		avg = (cloth + furn + misc) / stops;
+		avg = (cloth + misc) / stops;
 		avg = avg.toFixed(2);
 		$('#avg').val(avg + ' lbs');
 	} else

@@ -321,3 +321,4 @@
 [14-Jun-2012 15:12:37] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/arms/php/SQLCommands.php on line 364
 [14-Jun-2012 15:12:37] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/arms/php/SQLCommands.php on line 364
 [17-Aug-2012 18:09:16] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/esiadmin/public_html/dev/arms/php/SQLCommands.php:1330) in /home/esiadmin/public_html/dev/arms/php/SQLCommands.php on line 1333
+[20-Aug-2012 12:28:18] PHP Warning:  Division by zero in /home/esiadmin/public_html/dev/arms/php/SQLCommands.php on line 1314
