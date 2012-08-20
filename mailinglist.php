@@ -136,25 +136,8 @@ label input, label select
 <div id="outsideContainer">
 <div id="insideContainer">
 
-	<ul id="MenuBar" class="MenuBarHorizontal">
-	  <li id="routeMenu"><a id="routeButton" class="MenuBarItemSubmenu" href="routes.php"></a></li>
-	  <li id="driverMenu"><a id="driverButton" href="drivers.php"></a>
-      <ul>
-	      <li><a href="managedrivers.php">Manage Drivers</a></li>
-	      <li><a href="assigndrivers.php">Assign Drivers</a></li>
-      </ul>
-      </li>
-	  <li id="operatorMenu"><a id="operatorButton" class="MenuBarItemSubmenu" href="operators.php"></a>
-	  <ul><li><a href="manageusers.php">Manage Users</a></li>
-	      <li><a href="mailinglist.php">Maintain Mailing List</a></li>
-          <li><a href="callin.php">Schedule Call-In</a></li>
-          <li><a href="managecalls.php">Manage Calls</a></li>
-	      <li><a href="addcustomer.php">Add Customer</a></li>
-	      <li><a href="routeresults.php">Route Results</a></li>
-      </ul>
-      </li>
-	  <li id="gpsMenu"><a id="gpsButton" href=""></a></li>
-  	</ul>
+	<!-- Nav menu -->
+   	<?php include_once('nav.phtml'); ?>
     <br /><br />
   
   <div class="content" style="border: none;">

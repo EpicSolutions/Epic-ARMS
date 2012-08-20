@@ -7,6 +7,7 @@ body, html
 	padding: 0;
 	color: #000;
 	height: 100%;
+	overflow: none;
 }
 
 /* Lists */	 
@@ -50,7 +51,6 @@ a:hover, a:active, a:focus
 #wrapper
 {
 	min-height: 100%;
-	height: auto !important;
 	height: 100%;
 	margin: 0 auto -3.8em;
 }
@@ -75,7 +75,7 @@ a:hover, a:active, a:focus
 #driverMenu li
 {
 	background: #ccc;
-	left: 30px;		
+	left: 21px;		
 }
 
 #operatorButton
@@ -86,7 +86,7 @@ a:hover, a:active, a:focus
 #operatorMenu li
 {
 	background: #ccc;
-	left: 20px;		
+	left: 12px;		
 }
 
 #gpsButton
@@ -95,6 +95,16 @@ a:hover, a:active, a:focus
 }
 
 #gpsMenu li
+{
+	background: #ccc;	
+}
+
+#reportButton
+{
+	background-image: url(../images/reportButton.png);	
+}
+
+#reportMenu li
 {
 	background: #ccc;	
 }
@@ -121,7 +131,7 @@ a:hover, a:active, a:focus
 {
 	background: #fff;
 	min-width: 780px;
-	margin-left: 190px;
+	margin-left: 160px;
 	position: relative;
 }
 
@@ -159,10 +169,10 @@ a:hover, a:active, a:focus
 .footer 
 {	
 	width: 100%;
-	background: #aaa;
-	clear: both;
-	font: 12px "Times New Roman", Times, serif;
-	height: 1.4em;
+	position: absolute;
+	bottom: 0px;
+	color: #6EBDFC;
+	background: #524F4F;
 }
 
 .footer p
@@ -401,7 +411,7 @@ a:hover, a:active, a:focus
 {
 	margin: 0 auto;
 	height: 320px;
-	width: 90%;
+	width: 93.55%;
 	overflow: auto;
 
 }
@@ -519,4 +529,30 @@ a:hover, a:active, a:focus
 	margin-top: 5px; 
 	font-size: 14pt; 
 	display: block;
+}
+
+/**** History table ****/
+.historyTable th, .historyTable td {
+	width: 75px;
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.historyTable .noteCol {
+	font: 10pt/100% Arial, Helvetica, sans-serif !important;
+}
+
+.historyHolder {
+	height: 350px;
+	overflow-y: auto;
+}
+
+/**** Route History table ****/
+.routeHistTable th, td {
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.routeHistTable .notes {
+	text-align: left;
 }

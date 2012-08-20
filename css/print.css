@@ -1,0 +1,33 @@
+.tableHolder {
+	overflow: visible !important; 
+}
+
+#bottomButtons input, .sidebar, #clear, .center, #days, #content p, #addRoute, #nameInput, 
+  #userInput, .sfhtHeader {
+	display: none;
+}
+
+table, th, td {
+	border: 1px solid black !important;
+	border-collapse: collapse !important;
+}
+
+.sfhtTable, .sfhtData, .tableHolder, .sfhtTable > tbody > tr:nth-child(2) > td {
+	border: none !important;
+}
+
+table table {
+	border: 1px solid black !important;
+}
+
+#outsideContainer {
+	margin-left: 0;
+}
+
+#logo {
+	z-index: 999999999;
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	border: none;
+}

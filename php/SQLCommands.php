@@ -1323,5 +1323,83 @@ if($source == 'scheduledRoutes')
 	$sql = mysql_query($query) or die(mysql_error());
 	
 	
+} else if ($source == 'routeResults') {
+	// Start xml
+	$xml = "";
+	
+	// Send to XML
+	header('Content-Type: application/xml; charset=ISO-8859-1');
+	echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+	echo '<query>';
+	
+	/* Routes Table */
+	mysql_select_db("esiadmin_$site") or die ("esiadmin_$site");  
+	
+	if($dateType == 'day')
+	{
+		// String for query
+		$query = "SELECT * FROM routeHistory WHERE date='$selectedDate'";	
+		// Query
+		$sql = mysql_query($query) or die(mysql_error());
+	}
+	else if($dateType == 'week')
+	{
+		$dayOfWeek = date('w', strtotime($selectedDate));
+		
+		$beginDate = date('Y-m-d',strtotime('-' . ($dayOfWeek - 1) . ' day', strtotime($selectedDate)));
+		$endDate = date('Y-m-d',strtotime('+' . (5 - $dayOfWeek) . ' day', strtotime($selectedDate)));
+		
+		$query = "SELECT * FROM routeHistory WHERE date BETWEEN '$beginDate' AND '$endDate'";
+		
+		$sql = mysql_query($query) or die(mysql_error());	
+	}
+	
+	// Action to take on query
+	while($array = mysql_fetch_array($sql))
+	{
+		$route     = $array['route'];
+		$date      = $array['date'];
+		$cards     = $array['cards'];
+		$calls     = $array['calls'];
+		$driver    = $array['driver'];
+		$helper    = $array['helper'];
+		$clothing  = $array['clothing'];
+		$misc      = $array['misc'];
+		$furniture = $array['furniture'];
+		$stops     = $array['stops'];
+		$avg       = $array['averagePerPickup'];
+		$notes     = $array['notes'];
+		
+		$date = ReformatDate($date, 'm/d/Y');
+	
+		// XML string
+		$xml .= "<row>";
+		$xml .= "<route>$route</route>";
+		$xml .= "<date>$date</date>";
+		$xml .= "<cards>$cards</cards>";
+		$xml .= "<calls>$calls</calls>";
+		$xml .= "<driver>$driver</driver>";
+		$xml .= "<helper>$helper</helper>";
+		$xml .= "<clothing>$clothing</clothing>";
+		$xml .= "<misc>$misc</misc>";
+		$xml .= "<furniture>$furniture</furniture>";
+		$xml .= "<stops>$stops</stops>";
+		$xml .= "<avg>$avg</avg>";
+		$xml .= "<notes>$notes</notes>";
+		$xml .= "</row>";
+	}
+	
+	if(mysql_num_rows($sql) == 0)
+	{
+		$xml .= "<row>";
+		$xml .= "<result>No Routes</result>";
+		$xml .=	"</row>";
+	}
+	
+	// Add XML string to document
+	echo $xml;
+	echo "</query>";
+	
+	/* Routes Table */
+	mysql_select_db("esiadmin_arms") or die ("esiadmin_$site");	
 }
-?>

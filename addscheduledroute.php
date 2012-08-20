@@ -47,19 +47,25 @@ else
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ARMS - Add Scheduled Route</title>
+<link rel="stylesheet" type="text/css" media="screen" href="css/fixedHeader.css" />
 <link href="css/mainStyle.css" rel="stylesheet" type="text/css">
 <link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
 <link type="text/css" href="css/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />
 <link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="css/tableStyle.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" media="screen,projection" href="css/jquery-fallr-1.0.css" />
+<link rel="stylesheet" type="text/css" media="screen,projection" href="css/jquery-fallr-1.0.css" /> 
+<link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
 <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-latest.js"></script>
 <script type="text/javascript" src="js/jquery.livequery.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/dimensions.min.mjs"></script>
+<script type="text/javascript" src="js/scrollableFixedTable.js"></script>
 <script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
 <script src="js/SpryMenuBar.js" type="text/javascript"></script>
+<script type="text/javascript" src ="js/fixedHead.js"></script>
 <script src="js/datePicker.js" type="text/javascript"></script>
 <script src="js/addScheduledRoutes.js" type="text/javascript"></script>
 <style>
@@ -68,7 +74,7 @@ else
 {
 	margin: 0 auto;
 	height: 320px;
-	width: 98%;
+	width: 98.1%;
 	overflow: auto;
 	border-bottom: 2px solid #ccc;
 }
@@ -143,25 +149,7 @@ else
 <div id="outsideContainer">
 <div id="insideContainer">	
 
-	<ul id="MenuBar" class="MenuBarHorizontal">
-	  <li id="routeMenu"><a id="routeButton" class="MenuBarItemSubmenu" href="routes.php"></a></li>
-	  <li id="driverMenu"><a id="driverButton" href="drivers.php"></a>
-      <ul>
-	      <li><a href="managedrivers.php">Manage Drivers</a></li>
-	      <li><a href="assigndrivers.php">Assign Drivers</a></li>
-      </ul>
-      </li>
-	  <li id="operatorMenu"><a id="operatorButton" class="MenuBarItemSubmenu" href="operators.php"></a>
-	  <ul><li><a href="manageusers.php">Manage Users</a></li>
-	      <li><a href="mailinglist.php">Maintain Mailing List</a></li>
-          <li><a href="callin.php">Schedule Call-In</a></li>
-          <li><a href="managecalls.php">Manage Calls</a></li>
-	      <li><a href="addcustomer.php">Add Customer</a></li>
-	      <li><a href="routeresults.php">Route Results</a></li>
-      </ul>
-      </li>
-	  <li id="gpsMenu"><a id="gpsButton" href=""></a></li>
-  	</ul>
+	<?php include_once('nav.phtml'); ?>
     <br /><br />
   	
     <div id="content">
@@ -174,14 +162,14 @@ else
         <p id="days"></p>
         
         <div id="addRouteHolder" class="tableHolder">
-            <table id="addRouteTable" class="tablesorter">
+            <table id="addRouteTable" class="scrollableFixedHeaderTable tablesorter">
             <thead>
             <tr>
-                <th></th>
+                <th style="width: 33px;">&nbsp;&nbsp;&nbsp;&nbsp;</th>
                 <th>Route&nbsp;</th>
                 <th>Maps&nbsp;</th>
-                <th>Zips</th>
-                <th>City&nbsp;</th>
+                <th>&nbsp;Zips</th>
+                <th>&nbsp;&nbsp;&nbsp;City&nbsp;&nbsp;&nbsp;</th>
                 <th>Cards&nbsp;</th>
                 <th>Demographics</th>
                 <th>Last Scheduled&nbsp;</th>

@@ -1,6 +1,8 @@
 // Begin Scheduled Routes
 $(document).ready(function(){
 
+
+
 // Site name
 var sitePHP = $('#sitePHP').val();
 
@@ -63,7 +65,11 @@ $.post("php/SQLCommands.php",{source: 'addScheduledRoutes', date: selectedDate},
 		
 		$('table').tablesorter(
 			{sortList: [[1,0]]},
+			{widthFixed: false},
 			{widgets: ['zebra']});
+			
+		// Fix header
+		fixedHead(745, 320);
 		
 }); // End query
 
@@ -96,10 +102,10 @@ $('.history').live('click', function(event){
 		if($(data).find("route").text()){
 			
 			// Header for table
-			var tableText = '<table>' +
+			var tableText = '<table class="historyTable">' +
 							'<thead>' +
 							'<tr>' +
-							'<th>ScheduledDates</th>' +
+							'<th>Scheduled Dates</th>' +
 							'<th>Cards</th>' +
 							'<th>Calls</th>' +
 							'<th>Stops</th>' +
@@ -110,7 +116,12 @@ $('.history').live('click', function(event){
 							'<th>Average Per Stop</th>' +
 							'</tr>' +
 							'</thead>' +
-							'<tbody>';
+							'</table>' +
+							'<div class="historyHolder">' +
+							'<table class="historyTable">' +
+							'<tbody></tbody>' +
+							'</table>' +
+							'</div>';
 			
 			// Create Table
 			var table = $(document.createElement('div'));
@@ -120,7 +131,7 @@ $('.history').live('click', function(event){
 			
 			// Add sorting
 			$(table).find('table').addClass('tablesorter historyTable');
-			$('.historyTable').tablesorter({widgets: ['zebra']});
+			$('.historyTable').tablesorter({widthFixed: false},{widgets: ['zebra']});
 			
 			// Table CSS
 			table.find('td').css('border', '1px solid black');			
@@ -130,17 +141,17 @@ $('.history').live('click', function(event){
 				
 				// Get data from database
 				var route = $(this).find("route").text();
-				var date = $(this).find("date").text();
+				var date  = $(this).find("date").text();
 				var cards = $(this).find("cards").text();
 				var calls = $(this).find("calls").text();
 				var stops = $(this).find("stops").text();
 				var cloth = $(this).find("cloth").text();
-				var misc = $(this).find("misc").text();
+				var misc  = $(this).find("misc").text();
 				var notes = $(this).find("notes").text();
 				
 				// Calculate total and average
-				var total = parseInt(cloth) + parseInt(misc);
-				var average = total / stops;
+				var total = parseFloat(cloth) + parseFloat(misc);
+				var average = (total / stops).toFixed(2);
 				
 				// Calculate days since route
 				var today = new Date();
@@ -158,14 +169,17 @@ $('.history').live('click', function(event){
 						'<td>' + stops + '</td>' +
 						'<td>' + cloth + '</td>' +
 						'<td>' + misc + '</td>' +
-						'<td>' + notes + '</td>' +
+						'<td class="noteCol">' + notes + '</td>' +
 						'<td>' + total + '</td>' +
 						'<td>' + average + '</td>' +
 						'</tr>');
+						
+					$('.historyHolder').css({scroll: 'auto'});
 			
 					// Tell the table to sort the new data
 					table.trigger('update');
-					table.tablesorter({widgets: ['zebra']});					
+					table.tablesorter({widthFixed: false},{widgets: ['zebra']});
+										
 				} // Condition for last 12 months
 			}); // End row population
 		
@@ -186,8 +200,9 @@ $('.history').live('click', function(event){
 					},
 				closeKey: true,
 				content : table,
-				width: boxW,
-				height: boxH,
+				position: 'center',
+				width: 1060,
+				height: 500,
 				icon: 'none'});
 			
 		} else // If no entries in database display error
@@ -634,5 +649,4 @@ $('#fri').live('click',function(event){
 	$('#clear').click();
 	
 }); // End Friday
-
 }); // End document

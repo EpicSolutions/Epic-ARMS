@@ -42,15 +42,34 @@ else
 	}
 }
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ARMS - GPS Tracking</title>
+<link href="css/reset.css" rel="stylesheet" type="text/css">
 <link href="css/mainStyle.css" rel="stylesheet" type="text/css">
+<link href="css/gps.css" rel="stylesheet" type="text/css">
 <link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" 
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAoFybZX6NkgG5g0kd7HPLprhlIX8nQRMI&sensor=false">
+</script>
 <script src="js/SpryMenuBar.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-latest.js"></script>
+<script type="text/javascript" src="js/jquery.livequery.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
+<script type="text/javascript" src="js/adjustHeight.js"></script>
+<script type="text/javascript" src="js/gmap/jquery-ui-map.js"></script>
+<script type="text/javascript" src="js/truckStop.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+<style>
+<!--
+-->
+</style>
 </head>
 
 <body>
@@ -60,61 +79,27 @@ else
     <a id="logo" alt="" href="index.php"><img id="logo" alt="Logo" src="<?php echo $site; ?>/images/logo.jpg" /></a>
 	  
 </div><!-- end .header -->
-  
-<div class="sidebar">
-	
-    <img src="images/redGradient.png" />
-
-    <h2 style="font-size: 11pt;">Welcome, <? echo $uName; ?>!</h2>
-    <p id="logout">
-    	<a style="color: blue;" href="change.php">Change Password</a>
-    	<a style="color: blue;" href="logout.php">Logout</a>
-   	</p>
-    <p></p>
-    <p>Last login: <? echo $lastLogin; ?></p>
-    <p></p>
-    
-    <hr />
-    
-    <h2>Current News</h2>
-    <p style="font-size: 12px; font-weight: bold;"><?php echo $newsDate; ?></p>
-    <p style="overflow: auto;"><?php echo $newsMessage; ?></p>
-</div><!-- end .sidebar -->
 
 <div id="outsideContainer">
 <div id="insideContainer">
 
-	<ul id="MenuBar" class="MenuBarHorizontal">
-	  <li id="routeMenu"><a id="routeButton" class="MenuBarItemSubmenu" href="routes.php"></a></li>
-	  <li id="driverMenu"><a id="driverButton" href="drivers.php"></a>
-      <ul>
-	      <li><a href="managedrivers.php">Manage Drivers</a></li>
-	      <li><a href="assigndrivers.php">Assign Drivers</a></li>
-      </ul>
-      </li>
-	  <li id="operatorMenu"><a id="operatorButton" class="MenuBarItemSubmenu" href="operators.php"></a>
-	  <ul><li><a href="manageusers.php">Manage Users</a></li>
-	      <li><a href="mailinglist.php">Maintain Mailing List</a></li>
-          <li><a href="callin.php">Schedule Call-In</a></li>
-          <li><a href="managecalls.php">Manage Calls</a></li>
-	      <li><a href="addcustomer.php">Add Customer</a></li>
-	      <li><a href="routeresults.php">Route Results</a></li>
-      </ul>
-      </li>
-	  <li id="gpsMenu"><a id="gpsButton" href=""></a></li>
-  	</ul>
+	<!-- Nav menu -->
+   	<?php include_once('nav.phtml'); ?>
     <br /><br />
   
-<div class="content">
-    <h1>Coming soon...</h1>
-        
-  </div><!-- end .content -->
 </div><!-- end #insideContainer -->
 </div><!-- end #outsideContainer -->
+
+<div class="controlHolder">
+<div class="control">
+</div>
+</div>
+<div class="mapHolder">
+<div class="map">
+</div>
+</div>
       
 </div><!-- end #wrapper -->
-
-<div id="push"></div>
 
 <div class="footer">
 	<p>Powered by Epic Solutions</p>

@@ -46,7 +46,7 @@ else
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>ARMS - Scheduled Routes</title>
+<title>ARMS - Route History</title>
 <link href="css/mainStyle.css" rel="stylesheet" type="text/css">
 <link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
 <link type="text/css" href="css/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />
@@ -62,7 +62,7 @@ else
 <script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
 <script src="js/SpryMenuBar.js" type="text/javascript"></script>
 <script src="js/datePicker.js" type="text/javascript"></script>
-<script src="js/routes.js" type="text/javascript"></script>
+<script src="js/routeHistory.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -96,8 +96,8 @@ else
 <div id="outsideContainer">
 <div id="insideContainer">	
 	
-    <!-- Nav menu -->
-   	<?php include_once('nav.phtml'); ?>
+	<!-- Nav menu -->
+    <?php include_once('nav.phtml'); ?>
     <br /><br />
   	
     <div id="content">
@@ -109,19 +109,20 @@ else
             <input type="radio" name="viewType" id="viewType" value="week">By Week
         </p>
         
-        <h3 id="addRoute"><a href="addscheduledroute.php">Add Route</a></h3>
-        
         <div class="tableHolder">
-            <table id="scheduledTable" class="tablesorter">
+            <table class="routeHistTable tablesorter">
             <thead>
             <tr>
                 <th>Date</th>
                 <th>Route</th>
-                <th>Location</th>
                 <th>Cards</th>
                 <th>Calls</th>
-                <th></th>
-                <th></th>
+                <th>Stops</th>
+                <th>Clothing (lbs)</th>
+                <th>MISC (lbs)</th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;Notes&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Total</th>
+                <th>Average Per Stop</th>
             </tr>
             </thead>
             <tbody>  

@@ -6,9 +6,9 @@ table.tablesorter
 {
 	font-family: Verdana, Geneva, sans-serif;
 	background-color: #CDCDCD;
-	margin:0 auto;
+	/*margin:0 auto; */
 	font-size: 11pt;
-	width: 100%;
+	/* width: 100%; */
 	text-align: left;
 }
 
@@ -67,7 +67,7 @@ table.tablesorter a:hover
 	color: #000;	
 }
 
-<!-- Individual table styles -->
+/* Individual table styles */
 #addRouteTable
 {
 	font-size: 8pt;	
