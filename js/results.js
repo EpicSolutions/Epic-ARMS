@@ -233,30 +233,31 @@ $('#stop').live('blur',function(event){
 	var avg = 0;
 	
 	// Get LBs
-	if($('#clothLB').val() != '' && !isNaN($('#clothLB').val()))
-		cloth += parseInt($('#clothLB').val());
+	if($('#clothLB').val() != '' && !isNaN($('#clothLB').val())) {
+		cloth += parseFloat($('#clothLB').val());
+	}
 	else
 		cloth += 0;
 	if($('#clothCart').val() != '' && !isNaN($('#clothCart').val()))
-		cloth += parseInt($('#clothCart').val()) * 50;
+		cloth += parseFloat($('#clothCart').val()) * 950;
 	else
 		cloth += 0;
 	
 	if($('#furnLB').val() != '' && !isNaN($('#furnLB').val()))
-		furn += parseInt($('#furnLB').val());
+		furn += parseFloat($('#furnLB').val());
 	else
 		furn += 0;
 	if($('#furnPiece').val() != '' && !isNaN($('#furnPiece').val()))
-		furn += parseInt($('#furnPiece').val()) * 50;
+		furn += parseFloat($('#furnPiece').val()) * 950;
 	else
 		furn += 0;
 		
 	if($('#miscLB').val() != '' && !isNaN($('#miscLB').val()))
-		misc += parseInt($('#miscLB').val());
+		misc += parseFloat($('#miscLB').val());
 	else
 		misc += 0;
 	if($('#miscCart').val() != '' && !isNaN($('#miscCart').val()))
-		misc += parseInt($('#miscCart').val()) * 50;
+		misc += parseFloat($('#miscCart').val()) * 950;
 	else
 		misc += 0;
 	
@@ -264,8 +265,9 @@ $('#stop').live('blur',function(event){
 	&& (($('#clothLB').val != '' || $('#furnLB').val() != '' || $('#miscLB').val() != '' || !isNaN($('#stop').val()))
 	|| ($('#clothCart').val != '' || $('#furnPiece').val() != '' || $('#miscCart').val() != '' || !isNaN($('#stop').val()))))
 	{
-		stops = parseInt($('#stop').val());
+		stops = parseFloat($('#stop').val());
 		avg = (cloth + furn + misc) / stops;
+		avg = avg.toFixed(2);
 		$('#avg').val(avg + ' lbs');
 	} else
 		$('#avg').val('');

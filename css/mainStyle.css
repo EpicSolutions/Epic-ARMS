@@ -75,7 +75,7 @@ a:hover, a:active, a:focus
 #driverMenu li
 {
 	background: #ccc;
-	left: 30px;		
+	left: 21px;		
 }
 
 #operatorButton
@@ -86,7 +86,7 @@ a:hover, a:active, a:focus
 #operatorMenu li
 {
 	background: #ccc;
-	left: 20px;		
+	left: 12px;		
 }
 
 #gpsButton
@@ -95,6 +95,16 @@ a:hover, a:active, a:focus
 }
 
 #gpsMenu li
+{
+	background: #ccc;	
+}
+
+#reportButton
+{
+	background-image: url(../images/reportButton.png);	
+}
+
+#reportMenu li
 {
 	background: #ccc;	
 }
@@ -519,4 +529,30 @@ a:hover, a:active, a:focus
 	margin-top: 5px; 
 	font-size: 14pt; 
 	display: block;
+}
+
+/**** History table ****/
+.historyTable th, .historyTable td {
+	width: 75px;
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.historyTable .noteCol {
+	font: 10pt/100% Arial, Helvetica, sans-serif !important;
+}
+
+.historyHolder {
+	height: 350px;
+	overflow-y: auto;
+}
+
+/**** Route History table ****/
+.routeHistTable th, td {
+	text-align: center;
+	vertical-align: middle !important;
+}
+
+.routeHistTable .notes {
+	text-align: left;
 }
