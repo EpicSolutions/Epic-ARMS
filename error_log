@@ -108,3 +108,6 @@
 [20-Aug-2012 11:57:30] PHP Warning:  require_once(/php/connect_to_mysql.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/esiadmin/public_html/dev/arms/routehistory.php on line 9
 [20-Aug-2012 11:57:30] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '/php/connect_to_mysql.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/esiadmin/public_html/dev/arms/routehistory.php on line 9
 [20-Aug-2012 11:57:36] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/dev/arms/index.php on line 36
+[21-Aug-2012 16:47:07] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/dev/arms/index.php on line 36
+[21-Aug-2012 17:30:05] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/dev/arms/index.php on line 36
+[21-Aug-2012 17:49:58] PHP Warning:  mysql_fetch_array(): supplied argument is not a valid MySQL result resource in /home/esiadmin/public_html/dev/arms/index.php on line 36

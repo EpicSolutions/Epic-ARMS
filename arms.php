@@ -40,18 +40,7 @@ else
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ARMS</title>
-<link href="css/mainStyle.css" rel="stylesheet" type="text/css">
-<link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-latest.js"></script>
-<script type="text/javascript" src="js/jquery.livequery.js"></script>
-<script type="text/javascript" src="js/jquery.tablesorter.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
-<script src="js/SpryMenuBar.js" type="text/javascript"></script>
-<script src="js/datePicker.js" type="text/javascript"></script>
-<script src="js/styleSheet.js" type="text/javascript"></script>
-<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
+<?php require_once('head.phtml'); ?>
 
 </head>
 
