@@ -681,19 +681,22 @@ $('.datePicker').change(function(event) {
 					show = true;
 				}
 				else if(group != 'epic') {
-					message = "It is within 28 days. Please call Epic Solutions to schedule" +
+					message = "This date is within 28 days. Please contact your coordinator at Epic Solutions to schedule" +
 						" this route for this date.";
 					show = true;
 				}
 				
 				if(show) {
-				// Display message
-				$.fallr(
+					// Display message
+					$.fallr(
 						'show', {
 							content: message,
 							icon: 'key',
 							position: 'center'
 					}); // End fallr
+					
+					// Clear field
+					$('.datePicker').val('');
 				}
 			} // End < 28 days
 		}
