@@ -37,6 +37,7 @@ else if(isset($_POST['uName']) && isset($_POST['pass']))
 		{
 			// Set session variables
 			$_SESSION['uName']     	   = $array['uName'];
+			$_SESSION['group']		   = $array['group'];
 			$_SESSION['pass'] 	   	   = $array['pass'];
 			$_SESSION['tracking']  	   = $array['tracking'];
 			$_SESSION['routes']    	   = $array['routes'];

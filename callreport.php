@@ -40,20 +40,8 @@ else
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ARMS - Call Reports</title>
-<link href="css/mainStyle.css" rel="stylesheet" type="text/css">
-<link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
-<link type="text/css" href="css/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />
-<link href="css/jquery.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+<?php require_once('head.phtml'); ?>
 <link href="css/operatorTableStyle.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" media="screen,projection" href="css/jquery-fallr-1.0.css" />
-<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-latest.js"></script>
-<script type="text/javascript" src="js/jquery.livequery.js"></script> 
-<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-fallr-1.2.js"></script>
-<script src="js/SpryMenuBar.js" type="text/javascript"></script>
-<script src="js/datePicker.js" type="text/javascript"></script>
 <script src="js/callIn.js" type="text/javascript"></script>
 
 <style>

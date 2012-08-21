@@ -1,8 +1,6 @@
 // Begin Scheduled Routes
 $(document).ready(function(){
 
-
-
 // Site name
 var sitePHP = $('#sitePHP').val();
 
@@ -649,4 +647,58 @@ $('#fri').live('click',function(event){
 	$('#clear').click();
 	
 }); // End Friday
+
+// Check days remaining
+$('.datePicker').change(function(event) {
+	event.preventDefault();
+	
+	var dateObj    = $('.datePicker');
+	var date       = new Date(dateObj.val());
+	var today      = new Date();
+	
+	var daysRemaining = (date.getTime() - today.getTime()) / 1000 / 60 / 60 / 24;
+	
+	var group = '';
+	
+	$.post(
+		'php/session.php',
+		{type: 'get'},
+		function(data) {
+			$('var', data).each(function(i){
+				var key = $(this).find('key').text();
+				var val = $(this).find('val').text();
+				
+				if(key == 'group') {
+					group = val;
+				}
+			});
+			
+			if(daysRemaining <= 28) {
+				var show = false; // Only show message if necessary
+				
+				if(daysRemaining < 0) {
+					message = 'You cannot request a day prior to today';
+					show = true;
+				}
+				else if(group != 'epic') {
+					message = "It is within 28 days. Please call Epic Solutions to schedule" +
+						" this route for this date.";
+					show = true;
+				}
+				
+				if(show) {
+				// Display message
+				$.fallr(
+						'show', {
+							content: message,
+							icon: 'key',
+							position: 'center'
+					}); // End fallr
+				}
+			} // End < 28 days
+		}
+	); // End post
+	
+}); // End days remaining
+
 }); // End document

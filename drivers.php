@@ -40,9 +40,7 @@ else
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>ARMS - Drivers</title>
-<link href="css/mainStyle.css" rel="stylesheet" type="text/css">
-<link href="css/SpryMenuBarHorizontal.css" rel="stylesheet" type="text/css">
-<script src="js/SpryMenuBar.js" type="text/javascript"></script>
+<?php require_once('head.phtml'); ?>
 
 </head>
 
